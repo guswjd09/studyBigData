@@ -94,7 +94,7 @@ def main():
                          encoding='utf-8') # 파일이름 생성
         
         print('csv파일 저장완료!!')
-
+        
         # DB 저장
         connection = pymysql.connect(host='localhost',
                                      user = 'root',
