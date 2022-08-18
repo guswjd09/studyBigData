@@ -1,6 +1,7 @@
 from cmath import rect
 import json
 import sys
+
 from urllib.parse import quote
 import urllib.request
 from PyQt5 import uic
@@ -76,7 +77,7 @@ class qTemplate(QWidget):
 
         # saveResult 값 할당, lblStatus /2 상태값을 표시
         total = jsonResult['total']
-        curr = self.start + self.max_display
+        curr = self.start + self.max_display - 1
 
         self.lblStatus.setText(f'Data : {curr} / {total}')
 
@@ -93,18 +94,6 @@ class qTemplate(QWidget):
             self.btnNext.setEnabled(True) # 다음버튼 활성화
                   
     def makeTable(self, result):
-        
-        def strip_tag(title):
-            ret = title.replace('&lt;', '<')
-            ret = ret.replace('&rt;', '>')
-            ret = ret.replace('&quot;', '"')
-            ret = ret.replace('&apos;', "'")
-            ret = ret.replace('&amp;', '&')
-            ret = ret.replace('<b>', '')
-            ret = ret.replace('</b>', '')
-
-            return ret
-        
         self.tblResult.setSelectionMode(QAbstractItemView.SingleSelection)
         self.tblResult.setColumnCount(2)
         self.tblResult.setRowCount(len(result))
@@ -114,17 +103,28 @@ class qTemplate(QWidget):
         self.tblResult.setEditTriggers(QAbstractItemView.NoEditTriggers) # readonly
         
         i = 0
+
         for item in result:
-            title = strip_tag(item[0]['title'])
+            title = self.strip_tag(item[0]['title'])
             link = item[0]['originallink']
             self.tblResult.setItem(i, 0, QTableWidgetItem(title))
             self.tblResult.setItem(i, 1, QTableWidgetItem(link))
             i += 1
-        
+    
+    def strip_tag(self, title):
+            ret = title.replace('&lt;', '<')
+            ret = ret.replace('&rt;', '>')
+            ret = ret.replace('&quot;', '"')
+            ret = ret.replace('&apos;', "'")
+            ret = ret.replace('&amp;', '&')
+            ret = ret.replace('<b>', '')
+            ret = ret.replace('</b>', '')
+
+            return ret
     
     def getPostData(self, post):
         temp = []
-        title = post['title'] # 모든 곳에서 html태그 제거
+        title = self.strip_tag(post['title']) # 모든 곳에서 html태그 제거
         description = post['description']
         originallink = post['originallink']
         link = post['link']
