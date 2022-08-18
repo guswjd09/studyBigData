@@ -40,3 +40,7 @@
 - PyQt5 학습
   - PyQt5, Designer 설치
   - PyQt 기본폼 만들기
+
+![navernews]https://github.com/guswjd09/studyBigData/blob/main/image/%EC%A0%9C%EB%AA%A9%20%EC%97%86%EC%9D%8C.png
+
+네이버크롤링 결과 화면
