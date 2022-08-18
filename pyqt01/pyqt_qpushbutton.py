@@ -14,13 +14,14 @@ class qTemplate(QWidget):
 
     def initUI(self) -> None:
         self.addControls()
-        self.setGeometry(300, 200, 500, 200)
+        self.setGeometry(300, 100, 640, 400)
         self.setWindowTitle('QPushbutton')
         self.show()
     
     def addControls(self) -> None:
         btn1 = QPushButton('Click', self)
-        btn1.setGeometry(10, 10, 120, 40)
+				# btn1.setGeometry(510, 350, 120, 40)
+        btn1.setGeometry(510, 350, 120, 40)
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
